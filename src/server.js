@@ -31,3 +31,14 @@ server.start( (err) => {
   }
   console.log(`Magic happening at port ${server.info.uri}`);
 });
+
+
+server.state('data', {
+    ttl: null,
+    isSecure: true,
+    isHttpOnly: true,
+    encoding: 'base64json',
+    clearInvalid: false, // remove invalid cookies
+    strictHeader: true // don't allow violations of RFC 6265
+})
+module.exports = server;
