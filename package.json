@@ -1,0 +1,28 @@
+{
+    "name": "oauth-antonio-akin",
+    "version": "1.0.0",
+    "description": "oauth thingy",
+    "main": "index.js",
+    "scripts": {
+        "start":"nodemon -e 'js, css, html",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FAC10/oauth.git"
+    },
+    "keywords": [
+        "oauth"
+    ],
+    "author": "Akin & Antonio",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/FAC10/oauth/issues"
+    },
+    "homepage": "https://github.com/FAC10/oauth#readme",
+    "dependencies": {
+        "hapi": "^16.1.1",
+        "inert": "^4.2.0",
+        "vision": "^4.1.1"
+    }
+}
