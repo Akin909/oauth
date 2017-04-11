@@ -3,6 +3,7 @@ const Inert = require('inert');
 const Vision = require('vision');
 const routes = require('./routes.js');
 const fs = require('fs');
+const cookieAuth = require('hapi-auth-cookie')
 
 const server = new Hapi.Server();
 
@@ -16,10 +17,21 @@ server.connection({
   tls
 });
 
-server.register([Inert,Vision],(err) => {
+server.register([Inert,Vision,cookieAuth],(err) => {
   if (err) {
     throw err;
   }
+
+  const options = {
+    password: '12345678901234567890123456789012345678901234567890123456789012345678901234567890',
+    cookie: 'Success',
+    isSecure: false,
+    ttl: 2 * 60 * 1000,
+    };
+
+
+  server.auth.strategy('base','cookie','optional', options);
+  //  server.auth.default('cookie');
   server.route(routes);
 });
 
