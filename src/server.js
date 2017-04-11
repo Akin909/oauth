@@ -3,6 +3,7 @@ const Inert = require('inert');
 const Vision = require('vision');
 const routes = require('./routes.js');
 const fs = require('fs');
+const jwt = require('hapi-auth-jwt2');
 
 const server = new Hapi.Server();
 
@@ -16,7 +17,7 @@ server.connection({
   tls
 });
 
-server.register([Inert,Vision],(err) => {
+server.register([Inert,Vision,jwt],(err) => {
   if (err) {
     throw err;
   }
@@ -32,6 +33,32 @@ server.start( (err) => {
   console.log(`Magic happening at port ${server.info.uri}`);
 });
 
+const people = {
+
+    id:18493541,
+    login:"antoniotrkdz"
+
+}
+
+const validate = (token,request,callback) => {
+  console.log('=========',token);
+  console.log('people',people.id===token.user.user_id);
+  if (!people.id === token.user.user_id) {
+    console.log('false');
+    return callback(null,false);
+  }
+  console.log('true');
+  return callback(null,true);
+};
+
+const strategyOptions = {
+  key: process.env.SECRET,
+  validateFunc: validate,
+  verifyOptions: {algorithms: [ 'HS256' ] }
+}
+
+
+server.auth.strategy('jwt', 'jwt', strategyOptions);
 
 server.state('data', {
     ttl: null,
